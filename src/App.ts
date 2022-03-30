@@ -1,5 +1,6 @@
 import express, { Router } from "express";
 import { Express } from "express-serve-static-core";
+import dotEnv from "dotenv";
 
 const AppRouter: Router = require("./AppRouter")
 
@@ -9,6 +10,7 @@ export class App {
     public client: Express = express();
 
     constructor() {
+        dotEnv.config();
         this.setupExpress();
     }
 
