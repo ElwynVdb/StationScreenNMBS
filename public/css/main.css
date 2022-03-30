@@ -1,0 +1,72 @@
+body {
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+div {
+    width: 350px; /* This can change later */
+}
+
+.wrapper {
+    width: 330px;
+    margin-left: 5px;
+}
+
+.top-info {
+    display: flex;
+    justify-content: space-between;
+   
+    height: 60px;
+    line-height: 60px;
+}
+
+.top-info h1 {
+    font-size: 2rem;
+}
+
+.departure-info {
+    background-color: rgb(41, 41, 167);
+}
+
+.departure-info .departure-info__top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.departure-info .departure-info__top__timeperron-pair {
+    display: flex;
+    justify-content: space-between;
+    width: fit-content;
+    column-gap: 1.3rem;
+}
+
+.departure-info .departure-info__top .aanperron {
+    background-color: whitesmoke;
+    color:rgb(82, 82, 138);
+    width: fit-content;
+    border-radius: 0 69% 69% 0;
+}
+
+.departure-info .departure-info__top .aanperron  p {
+    font-size: 1.2rem;
+    padding: 0 1.3rem 0 0.7rem;
+}
+
+.departure-info .departure-info__top .departure-info__top__typetrack-pair {
+    display: flex;
+    column-gap: 0.8rem;
+    width: fit-content;
+}
+
+.departure-info .departure-info__top h2 {
+    font-size: 1.4rem;
+}
+
+.departure-info__bottom  p {
+    padding: 0.3rem 0;
+    font-size: 1.4rem;
+}

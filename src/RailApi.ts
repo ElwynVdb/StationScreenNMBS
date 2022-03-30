@@ -25,10 +25,7 @@ export class RailApi {
             }
         });
 
-        if (request.status == 200) {
-            let data: LiveBoard = request.data;
-            return data;
-        }
+        if (request.status == 200) return request.data;
     }
 }
 
