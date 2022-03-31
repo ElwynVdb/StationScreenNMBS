@@ -11,28 +11,42 @@
 </head>
 
 <body>
-    <div class="top-info">
-        <h1 class="top-info__time">17:27</h1>
-        <h1 class="top-info__departure">Vertrek</h1>
-    </div>
+    <h1 class="station-name"><%= station %></h1>
+    <div class="box">
+        <div class="top-info">
+            <%let currentTime = new Date(Date.now()).toLocaleDateString("nl-BE", { hour: "2-digit", minute: "2-digit" }).split(" ");%>
+            <h1 class="top-info__time"><%=currentTime[1]%></h1>
+            <h1 class="top-info__departure">Vertrek</h1>
+        </div>
 
-    <div class="departure-info">
-        <div class="departure-info__top wrapper">
-            <div class="departure-info__top__timeperron-pair">
-                <h2>17:30</h2>
-                <div class="aanperron">
-                    <p>aan perron</p>
+       <% departures.forEach(d => { %>
+        <%let canceled = d.canceled == 1;%>
+        <%let delayed = d.delay != 0%>
+    
+            <div class="departure-info <%= canceled ? "canceled-departure" : "" %>">
+                <div class="departure-info__top wrapper">
+                    <div class="departure-info__top__timeperron-pair">
+                        <% let timeDepart = new Date(d.time * 1000).toLocaleDateString("nl-BE", { hour: "2-digit", minute: "2-digit" }).split(" "); %>
+                        <h2><%=timeDepart[1]%></h2>
+                        <%if(delayed) {%>
+                        <div class="delay">
+                            <p>+<%= parseInt(d.delay) / 60 %></p>
+                        </div>
+                        <%}%>
+                    </div>
+                    <div class="departure-info__top__typetrack-pair">
+                        <h2><%= d.vehicleinfo.type %></h2>
+                        <h2><%=canceled ? "-" : d.platform%></h2>
+                    </div>
+                </div>
+                <div class="departure-info__bottom wrapper">
+                    <p><%=d.station%></p>
                 </div>
             </div>
-            <div class="departure-info__top__typetrack-pair">
-                <h2>IC</h2>
-                <h2>2</h2>
-            </div>
-        </div>
-        <div class="departure-info__bottom wrapper">
-            <p>Nijvel Charleroi-Zuid</p>
-        </div>
+        <% }); %>
     </div>
+
+  
 </body>
 
 </html>

@@ -1,10 +1,24 @@
 body {
     background-color: black;
     color: white;
+    height: 100vh;
+}
+
+.station-name {
+    text-align: center;
+    font-size: 2rem;
+    margin-top: 3rem;
+}
+
+.box {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    height: 712px;
+    width: fit-content;
     gap: 0.5rem;
+    margin-left: 20%;
+    margin-top: 10vh;
 }
 
 div {
@@ -12,7 +26,7 @@ div {
 }
 
 .wrapper {
-    width: 330px;
+    width: 340px;
     margin-left: 5px;
 }
 
@@ -29,6 +43,7 @@ div {
 }
 
 .departure-info {
+    height: 60px;
     background-color: rgb(41, 41, 167);
 }
 
@@ -44,14 +59,14 @@ div {
     column-gap: 1.3rem;
 }
 
-.departure-info .departure-info__top .aanperron {
+.departure-info .departure-info__top .delay {
     background-color: whitesmoke;
     color:rgb(82, 82, 138);
     width: fit-content;
-    border-radius: 0 69% 69% 0;
+    
 }
 
-.departure-info .departure-info__top .aanperron  p {
+.departure-info .departure-info__top .delay  p {
     font-size: 1.2rem;
     padding: 0 1.3rem 0 0.7rem;
 }
@@ -69,4 +84,8 @@ div {
 .departure-info__bottom  p {
     padding: 0.3rem 0;
     font-size: 1.4rem;
+}
+
+.canceled-departure {
+    background-color: red;
 }
