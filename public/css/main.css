@@ -14,11 +14,11 @@ body {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    height: 712px;
+    height: 80vh;
     width: fit-content;
     gap: 0.5rem;
-    margin-left: 20%;
-    margin-top: 10vh;
+    margin-top: 20px;
+    margin-left: 10px;
 }
 
 div {
