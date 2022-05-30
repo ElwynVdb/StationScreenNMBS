@@ -1,11 +1,13 @@
 import express, { Router } from "express";
 import { Express } from "express-serve-static-core";
 import dotEnv from "dotenv";
+import session from "express-session";
 
 const AppRouter: Router = require("./AppRouter")
 
 export class App {
     public static INSTANCE: App;
+    
 
     public client: Express = express();
 
@@ -23,6 +25,13 @@ export class App {
         this.client.set("view engine", "ejs");
 
         this.client.use(express.static("public"));
+        this.client.use(express.urlencoded({ extended: true }));  
+        this.client.use(session({
+            secret: "test",
+            resave: true,
+            saveUninitialized: true,
+            cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 } // 1 week
+        }));
         this.client.use(AppRouter);
     }
 
