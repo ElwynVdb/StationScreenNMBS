@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 
 import { RailApi } from "./RailApi";
+import { stat } from "fs";
 const router = express.Router();
 
 const default_station_name = "Antwerpen";
@@ -13,8 +14,16 @@ declare module 'express-session' {
 
 router.get("/", async (req: Request, res: Response) => {
     let station =req.session.station != undefined ? req.session.station : default_station_name;
-    let data = (await RailApi.getLiveBoard(station, "nl", false))?.departures.departure.filter(d => parseInt(d.id) <= 28);
-    res.status(200).render("index", { station: station, departures: data });
+    let data;
+    try {
+    data = (await RailApi.getLiveBoard(station, "nl", false))?.departures.departure.filter(d => parseInt(d.id) <= 28);
+    }
+    catch (e) {
+        station = station[0].toUpperCase() + station.slice(1).toLowerCase();
+        station = `${station} niet gevonden, toont nu ${default_station_name}`;
+        data = (await RailApi.getLiveBoard(default_station_name, "nl", false))?.departures.departure.filter(d => parseInt(d.id) <= 28);
+    }
+    res.status(200).render("index", { station: station, departures: data});
 });
 
 router.post("/", async (req: Request, res: Response) => {

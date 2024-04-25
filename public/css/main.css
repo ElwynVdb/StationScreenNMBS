@@ -14,20 +14,21 @@ body {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    height: 80vh;
-    width: fit-content;
-    gap: 0.5rem;
+    height: 80%;
+    column-gap: 1rem;
+    row-gap: 0.5rem;
     margin-top: 20px;
     margin-left: 10px;
 }
 
 div {
-    width: 350px; /* This can change later */
+    width: 400px;
 }
 
 .wrapper {
     width: 340px;
     margin-left: 5px;
+    padding: 0.5rem 0 0 0;
 }
 
 .top-info {
@@ -43,8 +44,8 @@ div {
 }
 
 .departure-info {
-    height: 60px;
-    background-color: rgb(41, 41, 167);
+    height: 5rem;
+    background-color: rgb(0, 0, 255);
 }
 
 .departure-info .departure-info__top {

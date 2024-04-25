@@ -24,9 +24,26 @@ export class RailApi {
                 "format": "json"
             }
         });
-
         if (request.status == 200) return request.data;
     }
+
+    public static async getStations(language: string): Promise<Stations | undefined> {
+        let request = await this.INSTANCE.get("/stations",
+            {
+                params: {
+                    "lang": language,
+                    "format": "json"
+                }
+            });
+        if (request.status != 200) console.log("error");
+        if (request.status == 200) return request.data;
+    }
+}
+
+export interface Stations {
+    name: string;
+    standardname: string;
+    id: string;
 }
 
 export interface Stationinfo {

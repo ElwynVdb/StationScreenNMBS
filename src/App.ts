@@ -33,6 +33,10 @@ export class App {
             cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 } // 1 week
         }));
         this.client.use(AppRouter);
+        // reload app every 30 seconds
+        setInterval(() => {
+            process.exit(0);
+        }, 30000);
     }
 
     public getPort(): number {

@@ -18,14 +18,14 @@
         <input type="submit" value="Select">
     </form>
 
-    <h1 class="station-name"><%= station %></h1>
+    <h1 class="station-name">Station: <%= station %></h1>
+    <div class="top-info">
+        <%let currentTime = new Date(Date.now()).toLocaleDateString("nl-BE", { hour: "2-digit", minute: "2-digit" }).split(" ");%>
+        <h1 class="top-info__time"><%=currentTime[1]%></h1>
+        <h1 class="top-info__departure">Vertrek</h1>
+    </div>
     <div class="box">
-        <div class="top-info">
-            <%let currentTime = new Date(Date.now()).toLocaleDateString("nl-BE", { hour: "2-digit", minute: "2-digit" }).split(" ");%>
-            <h1 class="top-info__time"><%=currentTime[1]%></h1>
-            <h1 class="top-info__departure">Vertrek</h1>
-        </div>
-
+        
        <% departures.forEach(d => { %>
         <%let canceled = d.canceled == 1;%>
         <%let delayed = d.delay != 0%>
