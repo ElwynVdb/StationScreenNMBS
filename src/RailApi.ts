@@ -1,4 +1,5 @@
 import axios, { Axios } from "axios";
+import { DateTime } from "luxon";
 
 export class RailApi {
 
@@ -9,77 +10,89 @@ export class RailApi {
     });
 
     public static async getLiveBoard(stationName: string, language: string, alerts: boolean): Promise<LiveBoard | undefined> {
-        let date = new Date(Date.now());;
-        let options: Intl.DateTimeFormatOptions = { day: "2-digit", month: "2-digit", year: "2-digit", hour: "2-digit", minute: "2-digit" };
-        let timeSplit = date.toLocaleDateString("nl-BE", options).split(" ");
-
-        let request = await this.INSTANCE.get("/liveboard", {
+        const request = await this.INSTANCE.get<LiveBoard>("/liveboard", {
             params: {
                 "station": stationName,
                 "alerts": alerts,
                 "lang": language,
-                "date": timeSplit[0].replace(/\//g, ""),
-                "time": timeSplit[1].replace(/:/g, ""),
                 "arrdep": "departure",
                 "format": "json"
             }
         });
 
+
+        if (request.status === 200) {
+            return request.data;
+        }
+    }
+
+    public static async getStations(language: string): Promise<Stations | undefined> {
+        let request = await this.INSTANCE.get("/stations",
+            {
+                params: {
+                    "lang": language,
+                    "format": "json"
+                }
+            });
+        if (request.status != 200) console.log("error");
         if (request.status == 200) return request.data;
     }
 }
 
-export interface Stationinfo {
-    locationX: string;
-    locationY: string;
-    id: string;
+
+export interface Stations {
     name: string;
     standardname: string;
-}
-
-export interface Vehicleinfo {
-    name: string;
-    shortname: string;
-    number: string;
-    type: string;
-
-}
-
-export interface Platforminfo {
-    name: string;
-    normal: string;
-}
-
-export interface Occupancy {
-    name: string;
-}
-
-export interface Departure {
     id: string;
-    delay: string;
-    station: string;
-    stationinfo: Stationinfo;
-    time: string;
-    vehicle: string;
-    vehicleinfo: Vehicleinfo;
-    platform: string;
-    platforminfo: Platforminfo;
-    canceled: string;
-    left: string;
-    isExtra: string;
-    departureConnection: string;
-    occupancy: Occupancy;
 }
 
-export interface Departures {
-    number: string;
-    departure: Departure[];
+interface LiveBoard {
+    readonly version: string;
+    readonly timestamp: string;
+    readonly station: string;
+    readonly stationinfo: StationInfo
+    readonly departures: {
+        readonly number: string;
+        readonly departure: Array<Departure>
+    }
 }
 
-export interface LiveBoard {
-    version: string;
-    timestamp: string;
-    station: string;
-    stationinfo: Stationinfo;
-    departures: Departures;
+interface StationInfo {
+    readonly locationX: string;
+    readonly locationY: string;
+    readonly id: string;
+    readonly name: string;
+    readonly standardname: string;
+    readonly '@id': string;
+}
+
+interface VehicleInfo {
+    readonly name: string;
+    readonly shortname: string;
+    readonly number: string;
+    readonly type: string;
+    readonly locationX: string;
+    readonly locationY: string;
+    readonly '@id': string;
+}
+
+interface PlatformInfo {
+    readonly name: string;
+    readonly normal: string;
+}
+
+interface Departure {
+    readonly id: string;
+    readonly delay: string;
+    readonly station: string;
+    readonly stationinfo: StationInfo;
+    readonly time: string;
+    readonly vehicle: string;
+    readonly vehicleinfo: VehicleInfo;
+    readonly platform: string;
+    readonly platforminfo: PlatformInfo;
+    readonly canceled: string;
+    readonly left: string;
+    readonly isExtra: boolean;
+    readonly departureConnection: string;
 }
