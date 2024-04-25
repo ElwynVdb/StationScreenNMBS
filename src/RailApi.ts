@@ -20,7 +20,6 @@ export class RailApi {
             }
         });
 
-
         if (request.status === 200) {
             return request.data;
         }
@@ -38,7 +37,6 @@ export class RailApi {
         if (request.status == 200) return request.data;
     }
 }
-
 
 export interface Stations {
     name: string;
